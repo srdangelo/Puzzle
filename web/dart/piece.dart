@@ -78,13 +78,25 @@ class Piece implements Touchable {
       x += dx;
       y += dy;
       if (leftNeighbor != null){
-        leftNeighbor.leftMove(dx+5, dy+5);
+        leftNeighbor.leftMove(dx, dy);
       }
     }
   
-  //void snap (){
-  
-  //}
+  void snap (){
+    print(x);
+    print(width);
+    num leftX = x - width;
+    num rightX = x + width;
+    
+    if (leftNeighbor != null){
+      leftNeighbor.x = leftX;
+      leftNeighbor.y = y;
+    }
+    if (rightNeighbor != null){
+      rightNeighbor.x = rightX;
+      rightNeighbor.y = y;
+    }
+  }
   
 
   
@@ -158,11 +170,6 @@ class Piece implements Touchable {
       click = 1;
       clickcount ++;
       pieceLocation();
-      print(pieceType);
-      print(leftBuddy);
-      print(rightBuddy);
-      //print(pieceType);
-      //print(clickcount);
     }
     
     
@@ -190,10 +197,12 @@ class Piece implements Touchable {
             if (rightBuddy.x >= this.x && rightBuddy.y >= this.y && rightBuddy.x <= this.x + width && rightBuddy.y <= this.y + height){
                   leftBuddy.leftNeighbor = this;
                   this.rightNeighbor = rightBuddy;
+                  this.snap();
                }
             if (leftBuddy.x >= this.x && leftBuddy.y >= this.y && leftBuddy.x <= this.x + width && leftBuddy.y <= this.y + height){
                   rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
+                  this.snap();
                }
         }
     if (rightBuddy != null && leftBuddy == null){
@@ -201,6 +210,7 @@ class Piece implements Touchable {
               //leftBuddy.leftNeighbor = this;
               this.rightNeighbor = rightBuddy;
               rightBuddy.rightNeighbor = this;
+              this.snap();
               print('yes!!');
            }
         }
@@ -209,6 +219,7 @@ class Piece implements Touchable {
                   //rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   leftBuddy.leftNeighbor = this;
+                  this.snap();
                   print('yes!!');
                }
             }
