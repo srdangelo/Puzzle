@@ -17,14 +17,15 @@ class Game extends TouchLayer {
 
   // width and height of the canvas
   int width, height;
+  static Random rand = new Random();
   
   
   // list of the boats that people can touch
   List<Piece> pieces = new List<Piece>();
   
   Piece piece; 
-  var blue;
-  var red;
+  
+  List<String> order = ['red', 'blue', 'green', 'purple'];
   
   //AgentManager ecosystem;
   
@@ -43,13 +44,32 @@ class Game extends TouchLayer {
     //trial = new Trial(ecosystem);  
     
  
-    // create a few boats
-    blue = new Piece(900, 400, 'blue');
-    addPiece(blue);
-    addPiece(new Piece(900, 500, 'green'));
-    red = new Piece(100, 400, 'red');
-    addPiece(red);
-    addPiece(new Piece(100, 500, 'purple'));
+    // create pieces in list
+    var item;
+    for (item in order){
+      addPiece(new Piece(500, 500, item));
+    }
+    // assign each piece and left and right buddy depending on order in list 
+    var square;
+    for (square in pieces){
+      int x;
+      x = pieces.indexOf(square);
+      //print(x);
+      if (x == 0){
+        //square.leftBuddy = null;
+        square.rightBuddy = pieces[x + 1];
+      }
+      if (x == pieces.length){
+        square.leftBuddy = pieces[x - 1];
+        //square.rightBuddy = null;
+      }
+      if (x != 0 && x != pieces.length - 1) {
+        square.leftBuddy = pieces[x - 1];
+        square.rightBuddy = pieces[x + 1];
+      }
+      
+    }
+    
 
 
     // redraw the canvas every 40 milliseconds

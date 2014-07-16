@@ -38,6 +38,9 @@ class Piece implements Touchable {
   
   Piece leftNeighbor = null;
   Piece rightNeighbor = null;
+  
+  Piece leftBuddy = null;
+  Piece rightBuddy = null;
 
 
 /**
@@ -175,53 +178,39 @@ class Piece implements Touchable {
   void touchSlide(Contact c) { }  
 
   void pieceLocation (){
-    num bx;
-    num by;
-    num gx;
-    num gy;
-    num px;
-    num py;
-    num rx;
-    num ry;
-    for (square in game.pieces) {
-          if (square.pieceType == 'blue'){
-            bx = square.x + 30;
-            by = square.y + 30;
-          }
-          if (square.pieceType == 'green'){
-            gx = square.x + 30;
-            gy = square.y + 30;
-          } 
-          if (square.pieceType == 'purple'){
-            px = square.x + 30;
-            py = square.y + 30;
-          }
-          if (square.pieceType == 'red'){
-            rx = square.x + 30;
-            ry = square.y + 30;
-            //if (rx >= bx && ry >= by && rx <= bx + width && ry <= by + height){
-                  //square = leftNeighbor; 
-                  //print('yes');
-                //}
-          }
-      }
-    for (square in game.pieces) {
-      if (square.pieceType == 'blue'){
-        if (rx >= bx && ry >= by && rx <= bx + width && ry <= by + height){
-              game.red.leftNeighbor = square;
-              square.rightNeighbor = game.red;
+    if (rightBuddy != null && leftBuddy != null){
+            if (rightBuddy.x >= this.x && rightBuddy.y >= this.y && rightBuddy.x <= this.x + width && rightBuddy.y <= this.y + height){
+                  leftBuddy.leftNeighbor = this;
+                  this.rightNeighbor = rightBuddy;
+                  print('yes');
+               }
+            if (leftBuddy.x >= this.x && leftBuddy.y >= this.y && leftBuddy.x <= this.x + width && leftBuddy.y <= this.y + height){
+                  rightBuddy.rightNeighbor = this;
+                  this.leftNeighbor = leftBuddy;
+                  print('yes');
+               }
+        }
+    if (rightBuddy != null && leftBuddy == null){
+        if (rightBuddy.x >= this.x && rightBuddy.y >= this.y && rightBuddy.x <= this.x + width && rightBuddy.y <= this.y + height){
+              //leftBuddy.leftNeighbor = this;
+              this.rightNeighbor = rightBuddy;
+              rightBuddy.rightNeighbor = this;
               print('yes');
            }
-      }
-      if (square.pieceType == 'red'){
-        if (rx >= bx && ry >= by && rx <= bx + width && ry <= by + height){
-               square = leftNeighbor; 
-               //print('yes'); 
         }
-      }
-    
+    if (leftBuddy != null && rightBuddy == null){
+            if (leftBuddy.x >= this.x && leftBuddy.y >= this.y && leftBuddy.x <= this.x + width && leftBuddy.y <= this.y + height){
+                  //rightBuddy.rightNeighbor = this;
+                  this.leftNeighbor = leftBuddy;
+                  leftBuddy.leftNeighbor = this;
+                  print('yes');
+               }
+            }
+    else{
+      print('something');
+        }
     }
-  }    
+       
   
   
 }
