@@ -54,12 +54,13 @@ class Game extends TouchLayer {
     for (square in pieces){
       int x;
       x = pieces.indexOf(square);
-      //print(x);
+      print(pieces.length);
+      print(x);
       if (x == 0){
         //square.leftBuddy = null;
         square.rightBuddy = pieces[x + 1];
       }
-      if (x == pieces.length){
+      if (x == pieces.length - 1){
         square.leftBuddy = pieces[x - 1];
         //square.rightBuddy = null;
       }

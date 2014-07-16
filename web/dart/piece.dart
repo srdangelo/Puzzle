@@ -42,6 +42,7 @@ class Piece implements Touchable {
   Piece leftBuddy = null;
   Piece rightBuddy = null;
 
+  
 
 /**
  * Default constructor
@@ -77,9 +78,13 @@ class Piece implements Touchable {
       x += dx;
       y += dy;
       if (leftNeighbor != null){
-        leftNeighbor.leftMove(dx, dy);
+        leftNeighbor.leftMove(dx+5, dy+5);
       }
     }
+  
+  //void snap (){
+  
+  //}
   
 
   
@@ -153,6 +158,9 @@ class Piece implements Touchable {
       click = 1;
       clickcount ++;
       pieceLocation();
+      print(pieceType);
+      print(leftBuddy);
+      print(rightBuddy);
       //print(pieceType);
       //print(clickcount);
     }
@@ -182,12 +190,10 @@ class Piece implements Touchable {
             if (rightBuddy.x >= this.x && rightBuddy.y >= this.y && rightBuddy.x <= this.x + width && rightBuddy.y <= this.y + height){
                   leftBuddy.leftNeighbor = this;
                   this.rightNeighbor = rightBuddy;
-                  print('yes');
                }
             if (leftBuddy.x >= this.x && leftBuddy.y >= this.y && leftBuddy.x <= this.x + width && leftBuddy.y <= this.y + height){
                   rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
-                  print('yes');
                }
         }
     if (rightBuddy != null && leftBuddy == null){
@@ -195,7 +201,7 @@ class Piece implements Touchable {
               //leftBuddy.leftNeighbor = this;
               this.rightNeighbor = rightBuddy;
               rightBuddy.rightNeighbor = this;
-              print('yes');
+              print('yes!!');
            }
         }
     if (leftBuddy != null && rightBuddy == null){
@@ -203,12 +209,9 @@ class Piece implements Touchable {
                   //rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   leftBuddy.leftNeighbor = this;
-                  print('yes');
+                  print('yes!!');
                }
             }
-    else{
-      print('something');
-        }
     }
        
   
