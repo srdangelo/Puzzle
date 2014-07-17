@@ -194,19 +194,19 @@ class Piece implements Touchable {
 
   void pieceLocation (){
     if (rightBuddy != null && leftBuddy != null){
-            if (rightBuddy.x >= this.x && rightBuddy.y >= this.y && rightBuddy.x <= this.x + width && rightBuddy.y <= this.y + height){
+            if (rightBuddy.x + 10 >= this.x && rightBuddy.y + 10 >= this.y && rightBuddy.x + 10 <= this.x + width && rightBuddy.y + 10 <= this.y + height){
                   leftBuddy.leftNeighbor = this;
                   this.rightNeighbor = rightBuddy;
                   this.snap();
                }
-            if (leftBuddy.x >= this.x && leftBuddy.y >= this.y && leftBuddy.x <= this.x + width && leftBuddy.y <= this.y + height){
+            if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   this.snap();
                }
         }
     if (rightBuddy != null && leftBuddy == null){
-        if (rightBuddy.x >= this.x && rightBuddy.y >= this.y && rightBuddy.x <= this.x + width && rightBuddy.y <= this.y + height){
+        if (rightBuddy.x + 10 >= this.x && rightBuddy.y + 10 >= this.y && rightBuddy.x + 10 <= this.x + width && rightBuddy.y + 10 <= this.y + height){
               //leftBuddy.leftNeighbor = this;
               this.rightNeighbor = rightBuddy;
               rightBuddy.rightNeighbor = this;
@@ -215,7 +215,7 @@ class Piece implements Touchable {
            }
         }
     if (leftBuddy != null && rightBuddy == null){
-            if (leftBuddy.x >= this.x && leftBuddy.y >= this.y && leftBuddy.x <= this.x + width && leftBuddy.y <= this.y + height){
+            if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   //rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   leftBuddy.leftNeighbor = this;
