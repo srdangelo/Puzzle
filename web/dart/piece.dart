@@ -83,19 +83,35 @@ class Piece implements Touchable {
     }
   
   void snap (){
-    print(x);
-    print(width);
     num leftX = x - width;
     num rightX = x + width;
     
     if (leftNeighbor != null){
       leftNeighbor.x = leftX;
       leftNeighbor.y = y;
+      leftNeighbor.snapLeft();
     }
     if (rightNeighbor != null){
+      rightNeighbor.snapRight();
       rightNeighbor.x = rightX;
       rightNeighbor.y = y;
     }
+  }
+  
+  void snapLeft(){
+    num leftX = rightBuddy.x - width;
+    if (leftNeighbor != null){
+          leftNeighbor.x = leftX;
+          leftNeighbor.y = y; 
+        }
+  }
+  
+  void snapRight(){
+    num rightX = leftBuddy.x + width;
+    if (rightNeighbor != null){
+          rightNeighbor.x = rightX;
+          rightNeighbor.y = y;
+        }
   }
   
 
@@ -195,12 +211,12 @@ class Piece implements Touchable {
   void pieceLocation (){
     if (rightBuddy != null && leftBuddy != null){
             if (rightBuddy.x + 10 >= this.x && rightBuddy.y + 10 >= this.y && rightBuddy.x + 10 <= this.x + width && rightBuddy.y + 10 <= this.y + height){
-                  leftBuddy.leftNeighbor = this;
+                  leftBuddy.rightNeighbor = this;
                   this.rightNeighbor = rightBuddy;
                   this.snap();
                }
             if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
-                  rightBuddy.rightNeighbor = this;
+                  rightBuddy.leftNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   this.snap();
                }
@@ -209,18 +225,18 @@ class Piece implements Touchable {
         if (rightBuddy.x + 10 >= this.x && rightBuddy.y + 10 >= this.y && rightBuddy.x + 10 <= this.x + width && rightBuddy.y + 10 <= this.y + height){
               //leftBuddy.leftNeighbor = this;
               this.rightNeighbor = rightBuddy;
-              rightBuddy.rightNeighbor = this;
+              rightBuddy.leftNeighbor = this;
               this.snap();
-              print('yes!!');
+              print('right buddy only');
            }
         }
     if (leftBuddy != null && rightBuddy == null){
             if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   //rightBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
-                  leftBuddy.leftNeighbor = this;
+                  leftBuddy.rightNeighbor = this;
                   this.snap();
-                  print('yes!!');
+                  print('left buddy only');
                }
             }
     }

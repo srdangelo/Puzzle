@@ -46,16 +46,19 @@ class Game extends TouchLayer {
  
     // create pieces in list
     var item;
+    num x = 300;
     for (item in order){
-      addPiece(new Piece(500, 500, item));
+      x = x + 100;
+      //print(x);
+      addPiece(new Piece(x, 300, item));
     }
     // assign each piece and left and right buddy depending on order in list 
     var square;
     for (square in pieces){
       int x;
       x = pieces.indexOf(square);
-      print(pieces.length);
-      print(x);
+      //print(pieces.length);
+      //print(x);
       if (x == 0){
         //square.leftBuddy = null;
         square.rightBuddy = pieces[x + 1];
