@@ -83,7 +83,7 @@ class Game extends TouchLayer {
 
 
     // redraw the canvas every 40 milliseconds
-    new Timer.periodic(const Duration(milliseconds : 40), (timer) => animate());
+    new Timer.periodic(const Duration(milliseconds : 50), (timer) => animate());
   }
   
   
