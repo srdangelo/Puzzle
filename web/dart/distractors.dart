@@ -1,6 +1,6 @@
 part of PuzzleAttempt;
 
-class Distractors{
+abstract class Distractors{
   
   //Position in space
   Point position ;
@@ -27,7 +27,7 @@ class distractorOne extends Distractors{
   
   void draw(CanvasRenderingContext2D ctx){
     ctx.fillStyle = 'white';
-    ctx.fillRect(position.x, position.y, 25, 25);
+    ctx.fillRect(position.x, position.y, 50, 49);
   }
   
 }

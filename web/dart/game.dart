@@ -22,12 +22,15 @@ class Game extends TouchLayer {
   
   // list of the boats that people can touch
   List<Piece> pieces = new List<Piece>();
+  List<Distractor> distractors = new List<Distractor>();
   
-  Piece piece; 
+  Piece piece;
+  Distractor distractor;
   
-  List<String> order = ['red', 'blue', 'green', 'purple'];
+  List<String> order = ['red', 'blue', 'green', 'purple', 'black'];
   
-  //AgentManager ecosystem;
+  AgentManager distractorOne;
+  
   
   //Trial trial;
       
@@ -41,8 +44,11 @@ class Game extends TouchLayer {
     tmanager.registerEvents(document.documentElement);
     tmanager.addTouchLayer(this);
     
-    //trial = new Trial(ecosystem);  
+    //trial = new Trial(distractorOne);  
     
+    addDistractor(new Distractor('white', 500, 500));
+    addDistractor(new Distractor('pink', 300, 200));
+    addDistractor(new Distractor('orange', 600, 700));
  
     // create pieces in list
     var item;
@@ -86,6 +92,9 @@ class Game extends TouchLayer {
     touchables.add(piece);
   }
   
+  void addDistractor(Distractor distractor){
+    distractors.add(distractor);
+  }
 
 /**
  * Animate all of the game objects 
@@ -94,6 +103,10 @@ class Game extends TouchLayer {
     
     for (Piece piece in pieces) {
       piece.animate();
+    }
+      
+    for (Distractor distractor in distractors) {
+       distractor.animate();
       
     }
     
@@ -120,8 +133,10 @@ class Game extends TouchLayer {
       piece.draw(ctx);
     }
     
-    //trial.draw(ctx, width, height);
-    //trial.animate();
+    for (Distractor distractor in distractors){
+    distractor.draw(ctx);
+    }
+
   }
 
   
