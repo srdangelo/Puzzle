@@ -29,9 +29,13 @@ class Distractor {
     var item;
     num i = 0;
     for (item in game.distractors){
-      i += 70;
-      newX = 20 + i;
-      newY = 100 + i;
+      i += 150;
+      newX = 400 + i;
+      newY = 400 + i;
+      if (newX >= game.width || newY >= game.height){
+        newX = 400;
+        newY = 400;
+      }
     }
     var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2));
     heading = atan2((newY - this.y), (newX - this.x));
