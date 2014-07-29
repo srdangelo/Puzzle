@@ -9,6 +9,8 @@ class Game extends TouchLayer {
   // this is the HTML canvas element
   CanvasElement canvas;
   
+  Random random = new Random();
+  
   // this object is what you use to draw on the canvas
   CanvasRenderingContext2D ctx;
 
@@ -28,6 +30,7 @@ class Game extends TouchLayer {
   Distractor distractor;
   
   List<String> order = ['red', 'blue', 'green', 'purple', 'black'];
+  List<String> others = ['red', 'white', 'yellow', 'blue', 'green', 'orange', 'purple', 'black'];
   
   AgentManager distractorOne;
   
@@ -45,18 +48,24 @@ class Game extends TouchLayer {
     tmanager.addTouchLayer(this);
     
     //trial = new Trial(distractorOne);  
-    
-    addDistractor(new Distractor('white', 500, 500));
-    addDistractor(new Distractor('pink', 300, 200));
-    addDistractor(new Distractor('orange', 600, 700));
- 
+    var other;
+    num z = 0;
+    for (other in others){
+          z += 100;
+          num otherX = random.nextInt(100) + z;
+          num otherY = random.nextInt(300);
+          addDistractor(new Distractor(other, otherX, otherY));
+        }
+
     // create pieces in list
     var item;
     num x = 300;
+    num y = 300;
     for (item in order){
-      x = x + 100;
+      x = random.nextInt(500) + 50;
+      y = random.nextInt(500) + 50;
       //print(x);
-      addPiece(new Piece(x, 300, item));
+      addPiece(new Piece(x, y, item));
     }
     // assign each piece and left and right buddy depending on order in list 
     var square;
@@ -83,7 +92,7 @@ class Game extends TouchLayer {
 
 
     // redraw the canvas every 40 milliseconds
-    new Timer.periodic(const Duration(milliseconds : 50), (timer) => animate());
+    new Timer.periodic(const Duration(milliseconds : 40), (timer) => animate());
   }
   
   
