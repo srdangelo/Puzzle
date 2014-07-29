@@ -56,6 +56,10 @@ class Game extends TouchLayer {
           num otherY = random.nextInt(300);
           addDistractor(new Distractor(other, otherX, otherY));
         }
+    
+    new Timer(const Duration(seconds : 3), () {
+      addDistractor(new Distractor('white', 500, 500));
+           });
 
     // create pieces in list
     var item;
