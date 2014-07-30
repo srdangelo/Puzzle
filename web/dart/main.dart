@@ -11,8 +11,6 @@ import 'dart:async';
 part 'piece.dart';
 part 'game.dart';
 part 'touch.dart';
-part 'distractors.dart';
-part 'trialOne.dart';
 part 'distractor.dart';
 
 

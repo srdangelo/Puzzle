@@ -29,13 +29,9 @@ class Game extends TouchLayer {
   Piece piece;
   Distractor distractor;
   
-  List<String> order = ['red', 'circleGreen', 'blue', 'green', 'circleRed', 'purple', 'circleBlue', 'circlePurple', 'black',];
+  List<String> order = ['red', 'blue', 'green', 'circleRed', 'purple', 'circleBlue'];
   List<String> others = ['red', 'white', 'yellow', 'blue', 'green', 'orange', 'purple', 'black'];
   
-  AgentManager distractorOne;
-  
-  
-  //Trial trial;
       
    
   Game() {
@@ -57,9 +53,9 @@ class Game extends TouchLayer {
           addDistractor(new Distractor(other, otherX, otherY));
         }
     
-    new Timer(const Duration(seconds : 3), () {
-      addDistractor(new Distractor('white', 500, 500));
-           });
+    //new Timer(const Duration(seconds : 3), () {
+      //addDistractor(new Distractor('white', 500, 500));
+           //});
 
     // create pieces in list
     var item;
@@ -120,7 +116,6 @@ class Game extends TouchLayer {
       
     for (Distractor distractor in distractors) {
        distractor.animate();
-      
     }
     
     
@@ -149,6 +144,10 @@ class Game extends TouchLayer {
     for (Distractor distractor in distractors){
     distractor.draw(ctx);
     }
+    
+  //new Timer(const Duration(seconds : 5), () {
+    //ctx.fillText("Next: ", 100, 100);
+           //});
 
   }
 

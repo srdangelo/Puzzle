@@ -12,6 +12,8 @@ class Piece implements Touchable {
   
   /* heading in radians */
   num heading = 0.0;
+
+  Random random = new Random();
   
   /* bitmap image */
   ImageElement img = new ImageElement();
@@ -41,6 +43,9 @@ class Piece implements Touchable {
   
   Piece leftBuddy = null;
   Piece rightBuddy = null;
+  
+  num newX = 500;
+  num newY = 500;
 
   
 
@@ -138,6 +143,7 @@ class Piece implements Touchable {
   
   
   void animate() {
+    moveAround();
   }
 
   
@@ -145,14 +151,12 @@ class Piece implements Touchable {
   
   num get height => img.height;
   
-  var click;
-  
     
   void draw(CanvasRenderingContext2D ctx) {
     ctx.save();
     {
       ctx.translate(x, y);
-      ctx.rotate(heading);
+      //ctx.rotate(heading);
       ctx.drawImage(img, -width/2, -height/2);
     }    
     ctx.restore();
@@ -179,11 +183,37 @@ class Piece implements Touchable {
     
   }
   
+  void moveAround(){
+  //if (touchDown == false){
+    num speed = 1.0;
+    num playSpeed = 1;
+    //num newX;
+    //num newY;
+    var item;
+        //newX = random.nextInt(game.width);
+        //newY = random.nextInt(game.height);
+        //newX = 800;
+        //newY = 800;
+        var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
+        heading = atan2((newY - this.y), (newX - this.x)) / atan2((newY - this.y), (newX - this.x));
+        //heading = 0;
+        
+        if(dist <= 600){
+          forward(speed * playSpeed);
+          }
+        else{
+          newX = random.nextInt(game.width);
+          newY = random.nextInt(game.height);
+          moveAround();
+        }
+    //}
+  }
+  
+  
   
   void touchUp(Contact c) {
     _dragging = false;
     if (c.touchX == _compareX && c.touchY == _compareY) {
-      click = 1;
       clickcount ++;
       pieceLocation();
     }
@@ -196,7 +226,6 @@ class Piece implements Touchable {
     move(c.touchX - _targetX, c.touchY - _targetY);
     _targetX = c.touchX;
     _targetY = c.touchY;
-    click = 0;
     dragLocation = c.touchX;
     //pieceLocation();
     //print(dragLocation);
@@ -228,7 +257,7 @@ class Piece implements Touchable {
               this.rightNeighbor = rightBuddy;
               rightBuddy.leftNeighbor = this;
               this.snap();
-              print('right buddy only');
+              //print('right buddy only');
            }
         }
     if (leftBuddy != null && rightBuddy == null){
@@ -236,7 +265,7 @@ class Piece implements Touchable {
                   this.leftNeighbor = leftBuddy;
                   leftBuddy.rightNeighbor = this;
                   this.snap();
-                  print('left buddy only');
+                  //print('left buddy only');
                }
             }
     }

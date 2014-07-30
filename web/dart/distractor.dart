@@ -56,7 +56,7 @@ class Distractor {
   
   Distractor(color, this.x, this.y){
       type = color;
-      speed = 3.00000;
+      speed = 2.00000;
     }
   
     void draw(CanvasRenderingContext2D ctx){
