@@ -17,6 +17,7 @@ class Distractor {
   
   var type;
   
+  
   void animate(){ 
     goto();
    }
@@ -56,12 +57,24 @@ class Distractor {
   
   Distractor(color, this.x, this.y){
       type = color;
-      speed = 2.00000;
+      speed = 1.00000;
     }
+  
+  void changeColor(){
+    num z = random.nextInt(25);
+    if (z == 5) {
+    for (Distractor distractor in game.distractors){
+        num i;
+        i = random.nextInt(7);
+        type = game.others[i];
+    }
+    }
+  }
   
     void draw(CanvasRenderingContext2D ctx){
         ctx.fillStyle = type;
         ctx.fillRect(x, y, 50, 49);
+        
       }
     
     

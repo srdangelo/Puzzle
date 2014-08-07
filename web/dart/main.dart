@@ -12,6 +12,7 @@ part 'piece.dart';
 part 'game.dart';
 part 'touch.dart';
 part 'distractor.dart';
+part 'trial.dart';
 
 
 // global game object

@@ -28,17 +28,20 @@ class Game extends TouchLayer {
   
   Piece piece;
   Distractor distractor;
+  Trial trial;
   
   List<String> order = ['red', 'blue', 'green', 'circleRed', 'purple', 'circleBlue'];
   List<String> others = ['red', 'white', 'yellow', 'blue', 'green', 'orange', 'purple', 'black'];
   
-      
+  //num score = 0;
    
   Game() {
     canvas = document.query("#game");
     ctx = canvas.getContext('2d');
     width = canvas.width;
     height = canvas.height;
+    
+    trial = new Trial();
     
     tmanager.registerEvents(document.documentElement);
     tmanager.addTouchLayer(this);
@@ -119,6 +122,7 @@ class Game extends TouchLayer {
     }
     
     
+    
     draw();
   }
   
@@ -134,7 +138,9 @@ class Game extends TouchLayer {
     ctx.textAlign = 'left';
     ctx.textBaseline = 'center';
     ctx.fillText("Puzzle Attempt: ", 100, 50);
- 
+    //ctx.fillText("${game.score}", 100, 100);
+    
+    //trial.draw(ctx, width, height);
     
     // draw the pieces
     for (Piece piece in pieces) {
@@ -145,9 +151,13 @@ class Game extends TouchLayer {
     distractor.draw(ctx);
     }
     
-  //new Timer(const Duration(seconds : 5), () {
-    //ctx.fillText("Next: ", 100, 100);
-           //});
+    new Timer(const Duration(seconds : 3), () {
+        for (Distractor distractor in distractors){
+             num i;
+             i = random.nextInt(7);
+             //distractor.type = others[i];
+             }
+     });
 
   }
 

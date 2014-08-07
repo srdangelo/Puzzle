@@ -24,6 +24,8 @@ class Piece implements Touchable {
   var location;
   var square;
   
+  
+  
   /* random number generator */
   static Random rand = new Random();
   
@@ -43,9 +45,6 @@ class Piece implements Touchable {
   
   Piece leftBuddy = null;
   Piece rightBuddy = null;
-  
-  num newX = 500;
-  num newY = 500;
 
   
 
@@ -143,6 +142,7 @@ class Piece implements Touchable {
   
   
   void animate() {
+    //stayIn();
     moveAround();
   }
 
@@ -183,30 +183,46 @@ class Piece implements Touchable {
     
   }
   
+  void stayIn (dist, head){
+    if (this.x >= game.width - 10){
+      x -= sin(head) * dist;
+      y += cos(head) * dist;
+    }
+    if (this.x <= 0){
+      x -= sin(head) * dist;
+      y += cos(head) * dist;
+    }
+    if (this.y >= game.height - 10){
+      x -= sin(head) * dist;
+      y += cos(head) * dist;
+    }
+    if (this.y <= 0){
+      x -= sin(head) * dist;
+      y += cos(head) * dist;
+    }
+    else{
+
+    }
+  }
+  
   void moveAround(){
-  //if (touchDown == false){
-    num speed = 1.0;
-    num playSpeed = 1;
-    //num newX;
-    //num newY;
-    var item;
-        //newX = random.nextInt(game.width);
-        //newY = random.nextInt(game.height);
-        //newX = 800;
-        //newY = 800;
+    num speed = 2;
+    num newX = 500;
+    num newY = 500;
+    //num newX = random.nextInt(game.width);
+    //num newY = random.nextInt(game.height);
         var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
-        heading = atan2((newY - this.y), (newX - this.x)) / atan2((newY - this.y), (newX - this.x));
-        //heading = 0;
-        
-        if(dist <= 600){
-          forward(speed * playSpeed);
+        num head = atan2((newY - this.y), (newX - this.x)) / atan2((newY - this.y), (newX - this.x));
+        //stayIn(dist);
+        stayIn(speed, head);
+        if(dist >= speed){
+          x += sin(head) * speed;
+          y -= cos(head) * speed;
+          
           }
         else{
-          newX = random.nextInt(game.width);
-          newY = random.nextInt(game.height);
-          moveAround();
+          forward(dist);
         }
-    //}
   }
   
   
@@ -244,12 +260,14 @@ class Piece implements Touchable {
                   rightBuddy.leftNeighbor = this;
                   this.rightNeighbor = rightBuddy;
                   this.snap();
+                  //game.score += 10;
                }
             if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   //rightBuddy.leftNeighbor = this;
                   leftBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   this.snap();
+                  //game.score += 10;
                }
         }
     if (rightBuddy != null && leftBuddy == null){
@@ -257,6 +275,7 @@ class Piece implements Touchable {
               this.rightNeighbor = rightBuddy;
               rightBuddy.leftNeighbor = this;
               this.snap();
+              //game.score += 10;
               //print('right buddy only');
            }
         }
@@ -265,6 +284,7 @@ class Piece implements Touchable {
                   this.leftNeighbor = leftBuddy;
                   leftBuddy.rightNeighbor = this;
                   this.snap();
+                  //game.score += 10;
                   //print('left buddy only');
                }
             }
