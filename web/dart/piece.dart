@@ -23,6 +23,7 @@ class Piece implements Touchable {
   var dragLocation;
   var location;
   var square;
+  num score = 100;
   
   
   
@@ -143,7 +144,7 @@ class Piece implements Touchable {
   
   void animate() {
     //stayIn();
-    moveAround();
+    ///moveAround();
   }
 
   
@@ -185,20 +186,20 @@ class Piece implements Touchable {
   
   void stayIn (dist, head){
     if (this.x >= game.width - 10){
-      x -= sin(head) * dist;
-      y += cos(head) * dist;
+      x += sin(head) * dist;
+      y -= cos(head) * dist;
     }
     if (this.x <= 0){
-      x -= sin(head) * dist;
-      y += cos(head) * dist;
+      x += sin(head) * dist;
+      y -= cos(head) * dist;
     }
     if (this.y >= game.height - 10){
-      x -= sin(head) * dist;
-      y += cos(head) * dist;
+      x += sin(head) * dist;
+      y -= cos(head) * dist;
     }
     if (this.y <= 0){
-      x -= sin(head) * dist;
-      y += cos(head) * dist;
+      x += sin(head) * dist;
+      y -= cos(head) * dist;
     }
     else{
 
@@ -214,7 +215,7 @@ class Piece implements Touchable {
         var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
         num head = atan2((newY - this.y), (newX - this.x)) / atan2((newY - this.y), (newX - this.x));
         //stayIn(dist);
-        stayIn(speed, head);
+        stayIn(-1, -head);
         if(dist >= speed){
           x += sin(head) * speed;
           y -= cos(head) * speed;
@@ -230,7 +231,7 @@ class Piece implements Touchable {
   void touchUp(Contact c) {
     _dragging = false;
     if (c.touchX == _compareX && c.touchY == _compareY) {
-      clickcount ++;
+      //clickcount ++;
       pieceLocation();
     }
     
@@ -254,20 +255,21 @@ class Piece implements Touchable {
   void touchSlide(Contact c) { }  
 
   void pieceLocation (){
+    
     if (rightBuddy != null && leftBuddy != null){
             if (rightBuddy.x + 10 >= this.x && rightBuddy.y + 10 >= this.y && rightBuddy.x + 10 <= this.x + width && rightBuddy.y + 10 <= this.y + height){
                   //leftBuddy.rightNeighbor = this;
                   rightBuddy.leftNeighbor = this;
                   this.rightNeighbor = rightBuddy;
                   this.snap();
-                  //game.score += 10;
+                  game.score += 10;
                }
             if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   //rightBuddy.leftNeighbor = this;
                   leftBuddy.rightNeighbor = this;
                   this.leftNeighbor = leftBuddy;
                   this.snap();
-                  //game.score += 10;
+                  game.score += 10;
                }
         }
     if (rightBuddy != null && leftBuddy == null){
@@ -275,7 +277,7 @@ class Piece implements Touchable {
               this.rightNeighbor = rightBuddy;
               rightBuddy.leftNeighbor = this;
               this.snap();
-              //game.score += 10;
+              game.score += 10;
               //print('right buddy only');
            }
         }
@@ -284,10 +286,11 @@ class Piece implements Touchable {
                   this.leftNeighbor = leftBuddy;
                   leftBuddy.rightNeighbor = this;
                   this.snap();
-                  //game.score += 10;
+                  game.score += 10;
                   //print('left buddy only');
                }
             }
+    //print(game.score);
     }
        
   
