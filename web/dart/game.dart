@@ -28,10 +28,10 @@ class Game extends TouchLayer {
   
   Piece piece;
   Distractor distractor;
-  Trial trial;
+
   
-  List<String> order = ['red', 'blue', 'green', 'circleRed', 'purple', 'circleBlue'];
-  List<String> others = ['red', 'white', 'yellow', 'blue', 'green', 'orange', 'purple', 'black'];
+  List<String> order = ['red', 'blue', 'circleRed', 'purple', 'circleBlue'];
+  List<String> others = ['black', 'green'];
   
   num score = 100;
    
@@ -41,12 +41,10 @@ class Game extends TouchLayer {
     width = canvas.width;
     height = canvas.height;
     
-    trial = new Trial();
     
     tmanager.registerEvents(document.documentElement);
     tmanager.addTouchLayer(this);
     
-    //trial = new Trial(distractorOne);  
     var other;
     num z = 0;
     for (other in others){
@@ -72,8 +70,7 @@ class Game extends TouchLayer {
     for (square in pieces){
       int x;
       x = pieces.indexOf(square);
-      //print(pieces.length);
-      //print(x);
+
       if (x == 0){
         //square.leftBuddy = null;
         square.rightBuddy = pieces[x + 1];
@@ -138,8 +135,6 @@ class Game extends TouchLayer {
     ctx.fillText("Puzzle Attempt: ", 100, 50);
     ctx.fillText("Score: ${score}", 100, 100);
     
-    //trial.draw(ctx, width, height);
-    
     // draw the pieces
     for (Piece piece in pieces) {
       piece.draw(ctx);
@@ -149,13 +144,6 @@ class Game extends TouchLayer {
     distractor.draw(ctx);
     }
     
-    new Timer(const Duration(seconds : 3), () {
-        for (Distractor distractor in distractors){
-             num i;
-             i = random.nextInt(7);
-             //distractor.type = others[i];
-             }
-     });
 
   }
 

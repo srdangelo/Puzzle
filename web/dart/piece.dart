@@ -18,7 +18,6 @@ class Piece implements Touchable {
   /* bitmap image */
   ImageElement img = new ImageElement();
   
-  num clickcount = 0; 
   var pieceType;
   var dragLocation;
   var location;
@@ -46,7 +45,9 @@ class Piece implements Touchable {
   
   Piece leftBuddy = null;
   Piece rightBuddy = null;
-
+  
+  num newY;
+  num newX;
   
 
 /**
@@ -55,6 +56,9 @@ class Piece implements Touchable {
   Piece(this.x, this.y, this.pieceType){
       img.src = "images/${pieceType}.png";
       //print(pieceType);
+      
+      newX = random.nextInt(500);
+      newY = random.nextInt(500);
 
   }
   
@@ -143,8 +147,9 @@ class Piece implements Touchable {
   
   
   void animate() {
-    //stayIn();
-    ///moveAround();
+    if(rightNeighbor == null){
+    moveAround();
+    }
   }
 
   
@@ -184,54 +189,34 @@ class Piece implements Touchable {
     
   }
   
-  void stayIn (dist, head){
-    if (this.x >= game.width - 10){
-      x += sin(head) * dist;
-      y -= cos(head) * dist;
-    }
-    if (this.x <= 0){
-      x += sin(head) * dist;
-      y -= cos(head) * dist;
-    }
-    if (this.y >= game.height - 10){
-      x += sin(head) * dist;
-      y -= cos(head) * dist;
-    }
-    if (this.y <= 0){
-      x += sin(head) * dist;
-      y -= cos(head) * dist;
-    }
-    else{
 
-    }
-  }
   
   void moveAround(){
-    num speed = 2;
-    num newX = 500;
-    num newY = 500;
-    //num newX = random.nextInt(game.width);
-    //num newY = random.nextInt(game.height);
+    num speed = 1;
         var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
-        num head = atan2((newY - this.y), (newX - this.x)) / atan2((newY - this.y), (newX - this.x));
-        //stayIn(dist);
-        stayIn(-1, -head);
+        num head = atan2((newY - this.y), (newX - this.x));
+
         if(dist >= speed){
-          x += sin(head) * speed;
-          y -= cos(head) * speed;
+          num targetX = cos(head) * speed;
+          num targetY = sin(head) * speed; 
+          move(targetX, targetY);
           
           }
         else{
-          forward(dist);
+          num targetX = cos(head) * dist;
+          num targetY = sin(head) * dist; 
+          move(targetX, targetY);
+                    
+          newX = random.nextInt(game.width);
+          newY = random.nextInt(game.height);
         }
   }
   
-  
+
   
   void touchUp(Contact c) {
     _dragging = false;
     if (c.touchX == _compareX && c.touchY == _compareY) {
-      //clickcount ++;
       pieceLocation();
     }
     
@@ -244,9 +229,6 @@ class Piece implements Touchable {
     _targetX = c.touchX;
     _targetY = c.touchY;
     dragLocation = c.touchX;
-    //pieceLocation();
-    //print(dragLocation);
-    //print (pieceType);
  
     repaint();
   }
@@ -290,7 +272,6 @@ class Piece implements Touchable {
                   //print('left buddy only');
                }
             }
-    //print(game.score);
     }
        
   

@@ -14,6 +14,9 @@ class Distractor implements Touchable{
   /* is this piece being touched now? */
   bool _dragging = false;
   
+  /* bitmap image */
+  ImageElement img = new ImageElement();
+  
   /* random number generator */
   Random random = new Random();
   num x = 0.0, y = 0.0;
@@ -23,54 +26,32 @@ class Distractor implements Touchable{
   num speed;
   num playSpeed = 1;
   
-  num newX;
-  num newY;
   
   var dragLocation;
   var location;
   
   var type;
-  
 
+  
+  num newX;
+  num newY;
   
   
   //Simple Turn and goto function used in animate()
-   void goto(){
-    //newX = random.nextInt(game.width);
-    //newY = random.nextInt(game.height);
-    var item;
-    num i = 0;
-    for (item in game.distractors){
-      i += 150;
-      newX = 400 + i;
-      newY = 400 + i;
-      if (newX >= game.width || newY >= game.height){
-        newX = 400;
-        newY = 400;
-      }
-    }
-    var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2));
-    heading = atan2((newY - this.y), (newX - this.x));
-    if(dist > speed * playSpeed){
-      forward(speed * playSpeed);
-    }
-    else{
-      forward(dist);
-      newX = random.nextInt(game.width);
-      newY = random.nextInt(game.height);
-    }
-  }
+
   
 
   
-  Distractor(color, this.x, this.y){
-      type = color;
+  Distractor(this.type, this.x, this.y){       
+      img.src = "images/${type}.png";
       speed = 1.00000;
+      newX = random.nextInt(500);
+      newY = random.nextInt(500);
     }
   
   
   void animate(){ 
-    //goto();
+    moveAround();
    }
   
   void forward(num distance) {
@@ -89,14 +70,35 @@ class Distractor implements Touchable{
     }
   }
   
+  void moveAround(){
+      num speed = 1;
+          var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
+          num head = atan2((newY - this.y), (newX - this.x));
+
+          if(dist >= speed){
+            num targetX = cos(head) * speed;
+            num targetY = sin(head) * speed; 
+            move(targetX, targetY);
+            
+            }
+          else{
+            num targetX = cos(head) * dist;
+            num targetY = sin(head) * dist; 
+            move(targetX, targetY);
+                      
+            newX = random.nextInt(game.width);
+            newY = random.nextInt(game.height);
+          }
+    }
+  
     void draw(CanvasRenderingContext2D ctx){
-        //ctx.fillStyle = type;
+        //ctx.fillStyle = color;
         //ctx.fillRect(x, y, 50, 49);
         
         ctx.save();
         {
-          ctx.fillStyle = type;
-          ctx.fillRect(x, y, 50, 49);
+          ctx.translate(x, y);
+          ctx.drawImage(img, -width/2, -height/2);
         }    
         ctx.restore();
         
@@ -121,11 +123,11 @@ class Distractor implements Touchable{
       left(-degrees);
     }
     
-    //num get width => this.width;
-    //num get height => this.height;
+    num get width => img.width;
+    num get height => img.height;
     
-    num width = 50;
-    num height = 50;
+    //num width = 50;
+    //num height = 50;
     
     bool containsTouch(Contact c) {
       num tx = c.touchX;
