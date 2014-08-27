@@ -49,6 +49,8 @@ class Piece implements Touchable {
   num newY;
   num newX;
   
+  bool moving = false;
+  
 
 /**
  * Default constructor
@@ -147,7 +149,7 @@ class Piece implements Touchable {
   
   
   void animate() {
-    if(rightNeighbor == null){
+    if(rightNeighbor == null && moving == false){
     moveAround();
     }
   }
@@ -162,7 +164,6 @@ class Piece implements Touchable {
     ctx.save();
     {
       ctx.translate(x, y);
-      //ctx.rotate(heading);
       ctx.drawImage(img, -width/2, -height/2);
     }    
     ctx.restore();
@@ -192,7 +193,8 @@ class Piece implements Touchable {
 
   
   void moveAround(){
-    num speed = 1;
+
+        num speed = 1;
         var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
         num head = atan2((newY - this.y), (newX - this.x));
 
@@ -209,7 +211,8 @@ class Piece implements Touchable {
                     
           newX = random.nextInt(game.width);
           newY = random.nextInt(game.height);
-        }
+        } 
+
   }
   
 
@@ -218,6 +221,7 @@ class Piece implements Touchable {
     _dragging = false;
     if (c.touchX == _compareX && c.touchY == _compareY) {
       pieceLocation();
+      moving = false;
     }
     
     
@@ -230,6 +234,8 @@ class Piece implements Touchable {
     _targetY = c.touchY;
     dragLocation = c.touchX;
  
+    moving = true; 
+    
     repaint();
   }
   

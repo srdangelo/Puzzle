@@ -26,6 +26,7 @@ class Distractor implements Touchable{
   num speed;
   num playSpeed = 1;
   
+  bool moving = false;
   
   var dragLocation;
   var location;
@@ -35,11 +36,6 @@ class Distractor implements Touchable{
   
   num newX;
   num newY;
-  
-  
-  //Simple Turn and goto function used in animate()
-
-  
 
   
   Distractor(this.type, this.x, this.y){       
@@ -51,7 +47,9 @@ class Distractor implements Touchable{
   
   
   void animate(){ 
+    if (moving == false){
     moveAround();
+    }
    }
   
   void forward(num distance) {
@@ -92,8 +90,6 @@ class Distractor implements Touchable{
     }
   
     void draw(CanvasRenderingContext2D ctx){
-        //ctx.fillStyle = color;
-        //ctx.fillRect(x, y, 50, 49);
         
         ctx.save();
         {
@@ -165,7 +161,8 @@ class Distractor implements Touchable{
       _targetX = c.touchX;
       _targetY = c.touchY;
       dragLocation = c.touchX;
-
+      
+      moving = true;
    
       repaint();
     }

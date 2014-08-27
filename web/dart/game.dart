@@ -31,7 +31,7 @@ class Game extends TouchLayer {
 
   
   List<String> order = ['red', 'blue', 'circleRed', 'purple', 'circleBlue'];
-  List<String> others = ['black', 'green'];
+  List<String> others = ['black', 'green', 'blue'];
   
   num score = 100;
    
