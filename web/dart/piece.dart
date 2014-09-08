@@ -12,6 +12,7 @@ class Piece implements Touchable {
   
   /* heading in radians */
   num heading = 0.0;
+  num pieceSpeed;
 
   Random random = new Random();
   
@@ -57,6 +58,7 @@ class Piece implements Touchable {
  */
   Piece(this.x, this.y, this.pieceType){
       img.src = "images/${pieceType}.png";
+      pieceSpeed = 1;
       //print(pieceType);
       
       newX = random.nextInt(500);
@@ -194,13 +196,13 @@ class Piece implements Touchable {
   
   void moveAround(){
 
-        num speed = 1;
+    pieceSpeed = 1;
         var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
         num head = atan2((newY - this.y), (newX - this.x));
 
-        if(dist >= speed){
-          num targetX = cos(head) * speed;
-          num targetY = sin(head) * speed; 
+        if(dist >= pieceSpeed){
+          num targetX = cos(head) * pieceSpeed;
+          num targetY = sin(head) * pieceSpeed; 
           move(targetX, targetY);
           
           }
@@ -251,6 +253,7 @@ class Piece implements Touchable {
                   this.rightNeighbor = rightBuddy;
                   this.snap();
                   game.score += 10;
+                  game.complete += 1;
                }
             if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   //rightBuddy.leftNeighbor = this;
@@ -258,6 +261,7 @@ class Piece implements Touchable {
                   this.leftNeighbor = leftBuddy;
                   this.snap();
                   game.score += 10;
+                  game.complete += 1;
                }
         }
     if (rightBuddy != null && leftBuddy == null){
@@ -266,6 +270,7 @@ class Piece implements Touchable {
               rightBuddy.leftNeighbor = this;
               this.snap();
               game.score += 10;
+              game.complete += 1;
               //print('right buddy only');
            }
         }
@@ -275,6 +280,7 @@ class Piece implements Touchable {
                   leftBuddy.rightNeighbor = this;
                   this.snap();
                   game.score += 10;
+                  game.complete += 1;
                   //print('left buddy only');
                }
             }

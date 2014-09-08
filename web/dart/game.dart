@@ -30,10 +30,11 @@ class Game extends TouchLayer {
   Distractor distractor;
 
   
-  List<String> order = ['red', 'blue', 'circleRed', 'purple', 'circleBlue'];
-  List<String> others = ['black', 'green', 'blue'];
+  List<String> order = ['red', 'blue', 'green'];
+  List<String> others = ['circleRed', 'circleBlue', 'circleGreen'];
   
   num score = 100;
+  num complete = 0;
    
   Game() {
     canvas = document.query("#game");
@@ -62,7 +63,6 @@ class Game extends TouchLayer {
     for (item in order){
       x = random.nextInt(500) + 50;
       y = random.nextInt(500) + 50;
-      //print(x);
       addPiece(new Piece(x, y, item));
     }
     // assign each piece and left and right buddy depending on order in list 
@@ -134,6 +134,9 @@ class Game extends TouchLayer {
     ctx.textBaseline = 'center';
     ctx.fillText("Puzzle Attempt: ", 100, 50);
     ctx.fillText("Score: ${score}", 100, 100);
+    if (complete == pieces.length - 1){
+      ctx.fillText("Complete!!", 100, 150);
+    }
     
     // draw the pieces
     for (Piece piece in pieces) {

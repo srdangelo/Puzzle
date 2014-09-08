@@ -23,8 +23,7 @@ class Distractor implements Touchable{
   
   /* heading in radians */
   num heading = 0.0;
-  num speed;
-  num playSpeed = 1;
+  num disSpeed;
   
   bool moving = false;
   
@@ -40,7 +39,7 @@ class Distractor implements Touchable{
   
   Distractor(this.type, this.x, this.y){       
       img.src = "images/${type}.png";
-      speed = 1.00000;
+      disSpeed = 1;
       newX = random.nextInt(500);
       newY = random.nextInt(500);
     }
@@ -69,13 +68,13 @@ class Distractor implements Touchable{
   }
   
   void moveAround(){
-      num speed = 1;
+    disSpeed = 1;
           var dist = sqrt(pow((newX - this.x), 2) + pow((newY - this.y), 2)); 
           num head = atan2((newY - this.y), (newX - this.x));
 
-          if(dist >= speed){
-            num targetX = cos(head) * speed;
-            num targetY = sin(head) * speed; 
+          if(dist >= disSpeed){
+            num targetX = cos(head) * disSpeed;
+            num targetY = sin(head) * disSpeed; 
             move(targetX, targetY);
             
             }
@@ -149,6 +148,7 @@ class Distractor implements Touchable{
       _dragging = false;
       if (c.touchX == _compareX && c.touchY == _compareY) {
         game.score -= 10;
+        moving = false;
       }
       
       
