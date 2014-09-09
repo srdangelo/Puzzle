@@ -4,21 +4,18 @@
 part of PuzzleAttempt;
 
 
-class Game extends TouchLayer {
-  
-  // this is the HTML canvas element
-  CanvasElement canvas;
+class Trial extends TouchLayer {
   
   Random random = new Random();
   
   // this object is what you use to draw on the canvas
-  CanvasRenderingContext2D ctx;
+  //CanvasRenderingContext2D ctx;
 
   // this is for multi-touch or mouse event handling  
   TouchManager tmanager = new TouchManager();
 
   // width and height of the canvas
-  int width, height;
+  //int width, height;
   static Random rand = new Random();
   
   
@@ -30,18 +27,13 @@ class Game extends TouchLayer {
   Distractor distractor;
 
   
-  List<String> order = ['red', 'blue', 'green'];
-  List<String> others = ['circleRed', 'circleBlue', 'circleGreen'];
+  //List<String> order = ['red', 'blue', 'green'];
+  //List<String> others = ['circleRed', 'circleBlue', 'circleGreen'];
   
-  num score = 100;
-  num complete = 0;
+  //num score = 100;
+  //num complete = 0;
    
-  Game() {
-    canvas = document.query("#game");
-    ctx = canvas.getContext('2d');
-    width = canvas.width;
-    height = canvas.height;
-    
+  Trial(order, others) { 
     
     tmanager.registerEvents(document.documentElement);
     tmanager.addTouchLayer(this);
@@ -89,7 +81,7 @@ class Game extends TouchLayer {
 
 
     // redraw the canvas every 40 milliseconds
-    new Timer.periodic(const Duration(milliseconds : 40), (timer) => animate());
+    //new Timer.periodic(const Duration(milliseconds : 40), (timer) => animate());
   }
   
   
@@ -117,25 +109,27 @@ class Game extends TouchLayer {
     }
     
     
-    
-    draw();
+    //draw();
   }
   
 
-  void draw() {
+  void draw(CanvasRenderingContext2D ctx, num width, num height) {
     
     // erase the screen
     ctx.clearRect(0, 0, width, height);
     
     // draw some text
-    ctx.fillStyle = 'White';
+    ctx.fillStyle = 'white';
     ctx.font = '30px sans-serif';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'center';
     ctx.fillText("Puzzle Attempt: ", 100, 50);
-    ctx.fillText("Score: ${score}", 100, 100);
-    if (complete == pieces.length - 1){
+    ctx.fillText("Score: ${game.score}", 100, 100);
+    if (game.complete == pieces.length - 1){
       ctx.fillText("Complete!!", 100, 150);
+      game.complete = 0;
+      game.transition();
+      //print (game.complete);
     }
     
     // draw the pieces
