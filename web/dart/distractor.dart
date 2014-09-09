@@ -15,7 +15,7 @@ class Distractor implements Touchable{
   bool _dragging = false;
   
   /* bitmap image */
-  ImageElement img = new ImageElement();
+  html.ImageElement img = new html.ImageElement();
   
   /* random number generator */
   Random random = new Random();
@@ -88,7 +88,7 @@ class Distractor implements Touchable{
           }
     }
   
-    void draw(CanvasRenderingContext2D ctx){
+    void draw(html.CanvasRenderingContext2D ctx){
         
         ctx.save();
         {

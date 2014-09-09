@@ -10,7 +10,7 @@ class TouchManager {
   bool mdown = false;
   
   /* Element that receives touch or mouse events */
-  Element parent = null;
+  html.Element parent = null;
   
   /* A list of touch layers */
   List<TouchLayer> layers = new List<TouchLayer>();
@@ -52,7 +52,7 @@ class TouchManager {
 /*
  * The main class must call this method to enable mouse and touch input
  */ 
-  void registerEvents(Element element) {
+  void registerEvents(html.Element element) {
     parent = element;
    
     element.onMouseDown.listen((e) => _mouseDown(e));
@@ -64,14 +64,14 @@ class TouchManager {
     element.onTouchEnd.listen((e) => _touchUp(e));
       
     // Prevent screen from dragging on ipad
-    document.onTouchMove.listen((e) => e.preventDefault());
+    html.document.onTouchMove.listen((e) => e.preventDefault());
   }
 
   
 /*
  * Convert mouseUp to touchUp events
  */
-  void _mouseUp(MouseEvent evt) {
+  void _mouseUp(html.MouseEvent evt) {
     TouchBinding target = touch_bindings[-1];
     if (target != null) {
       Contact c = new Contact.fromMouse(evt);
@@ -85,7 +85,7 @@ class TouchManager {
 /*
  * Convert mouseDown to touchDown events
  */
-  void _mouseDown(MouseEvent evt) {
+  void _mouseDown(html.MouseEvent evt) {
     Contact t = new Contact.fromMouse(evt);
     TouchBinding target = findTouchTarget(t);
     if (target != null) {
@@ -100,7 +100,7 @@ class TouchManager {
 /*
  * Convert mouseMove to touchDrag events
  */
-  void _mouseMove(MouseEvent evt) {
+  void _mouseMove(html.MouseEvent evt) {
     if (mdown) {
       Contact t = new Contact.fromMouse(evt);
       TouchBinding target = touch_bindings[-1];
@@ -117,7 +117,7 @@ class TouchManager {
    
    
   void _touchDown(var tframe) {
-    for (Touch touch in tframe.changedTouches) {
+    for (html.Touch touch in tframe.changedTouches) {
       Contact t = new Contact.fromTouch(touch, parent);
       TouchBinding target = findTouchTarget(t);
       if (target != null) {
@@ -130,7 +130,7 @@ class TouchManager {
    
    
   void _touchUp(var tframe) {
-    for (Touch touch in tframe.changedTouches) {
+    for (html.Touch touch in tframe.changedTouches) {
       Contact t = new Contact.fromTouch(touch, parent);
       TouchBinding target = touch_bindings[t.id];
       if (target != null) {
@@ -145,7 +145,7 @@ class TouchManager {
    
    
   void _touchDrag(var tframe) {
-    for (Touch touch in tframe.changedTouches) {
+    for (html.Touch touch in tframe.changedTouches) {
       Contact t = new Contact.fromTouch(touch, parent);
       TouchBinding target = touch_bindings[t.id];
       if (target != null) {
@@ -268,7 +268,7 @@ class Contact {
   
   Contact(this.id);
   
-  Contact.fromMouse(MouseEvent mouse) {
+  Contact.fromMouse(html.MouseEvent mouse) {
     id = -1;
     touchX = mouse.offset.x.toDouble();
     touchY = mouse.offset.y.toDouble();
@@ -276,9 +276,9 @@ class Contact {
   }
 
   
-  Contact.fromTouch(Touch touch, Element parent) {
-    num left = window.pageXOffset;
-    num top = window.pageYOffset;
+  Contact.fromTouch(html.Touch touch, html.Element parent) {
+    num left = html.window.pageXOffset;
+    num top = html.window.pageYOffset;
     
     if (parent != null) {
       Rectangle box = parent.getBoundingClientRect();

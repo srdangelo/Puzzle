@@ -17,7 +17,7 @@ class Piece implements Touchable {
   Random random = new Random();
   
   /* bitmap image */
-  ImageElement img = new ImageElement();
+  html.ImageElement img = new html.ImageElement();
   
   var pieceType;
   var dragLocation;
@@ -162,7 +162,7 @@ class Piece implements Touchable {
   num get height => img.height;
   
     
-  void draw(CanvasRenderingContext2D ctx) {
+  void draw(html.CanvasRenderingContext2D ctx) {
     ctx.save();
     {
       ctx.translate(x, y);

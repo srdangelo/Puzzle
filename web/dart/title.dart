@@ -9,14 +9,14 @@ class Title extends TouchLayer{
   Title(){
    
     
-    tmanager.registerEvents(document.documentElement);
+    tmanager.registerEvents(html.document.documentElement);
     tmanager.addTouchLayer(this);
     
     touchables.add(myIntro);
   }
   
   
-  void draw(CanvasRenderingContext2D ctx,num width,num height){
+  void draw(html.CanvasRenderingContext2D ctx,num width,num height){
     myIntro.draw(ctx, width, height);
   }
   void animate(){
@@ -27,13 +27,13 @@ class Title extends TouchLayer{
 }
 
 class IntroTouch implements Touchable{
-  ImageElement img = new ImageElement();
+  html.ImageElement img = new html.ImageElement();
   
   IntroTouch(){
     img.src = "images/title.png";
   }
   
-  void draw(CanvasRenderingContext2D ctx,num width,num height){
+  void draw(html.CanvasRenderingContext2D ctx,num width,num height){
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = 'black';
     ctx.drawImage(img, 200, 200);

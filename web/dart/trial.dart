@@ -35,7 +35,7 @@ class Trial extends TouchLayer {
    
   Trial(order, others) { 
     
-    tmanager.registerEvents(document.documentElement);
+    tmanager.registerEvents(html.document.documentElement);
     tmanager.addTouchLayer(this);
     
     var other;
@@ -113,7 +113,7 @@ class Trial extends TouchLayer {
   }
   
 
-  void draw(CanvasRenderingContext2D ctx, num width, num height) {
+  void draw(html.CanvasRenderingContext2D ctx, num width, num height) {
     
     // erase the screen
     ctx.clearRect(0, 0, width, height);
@@ -129,7 +129,6 @@ class Trial extends TouchLayer {
       ctx.fillText("Complete!!", 100, 150);
       game.complete = 0;
       game.transition();
-      //print (game.complete);
     }
     
     // draw the pieces
