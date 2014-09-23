@@ -51,6 +51,7 @@ class Piece implements Touchable {
   num newX;
   
   bool moving = false;
+
   
 
 /**
@@ -223,6 +224,7 @@ class Piece implements Touchable {
     _dragging = false;
     if (c.touchX == _compareX && c.touchY == _compareY) {
       pieceLocation();
+      game.touched.add(this.pieceType);
       moving = false;
     }
     
@@ -254,6 +256,7 @@ class Piece implements Touchable {
                   this.snap();
                   game.score += 10;
                   game.complete += 1;
+                  //game.touched.add(this.pieceType);
                }
             if (leftBuddy.x + 10 >= this.x && leftBuddy.y + 10 >= this.y && leftBuddy.x + 10 <= this.x + width && leftBuddy.y + 10 <= this.y + height){
                   //rightBuddy.leftNeighbor = this;
@@ -262,6 +265,7 @@ class Piece implements Touchable {
                   this.snap();
                   game.score += 10;
                   game.complete += 1;
+                  //game.touched.add(this.pieceType);
                }
         }
     if (rightBuddy != null && leftBuddy == null){
@@ -271,6 +275,7 @@ class Piece implements Touchable {
               this.snap();
               game.score += 10;
               game.complete += 1;
+              //game.touched.add(this.pieceType);
               //print('right buddy only');
            }
         }
@@ -281,6 +286,7 @@ class Piece implements Touchable {
                   this.snap();
                   game.score += 10;
                   game.complete += 1;
+                  //game.touched.add(this.pieceType);
                   //print('left buddy only');
                }
             }

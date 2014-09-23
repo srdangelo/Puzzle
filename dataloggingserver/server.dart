@@ -47,7 +47,7 @@ void getID(){
     var splitLast = last.split(',');
     temp = num.parse(splitLast[0]);
     id = temp+1;
-    print('id: ${id}');
+    //print('id: ${id}');
     var paddedID = '$id'.padLeft(3,"0");
     ws.add('id: $paddedID');
 
@@ -72,7 +72,7 @@ void main() {
   });
   
   runZoned(() {
-    HttpServer.bind('10.101.157.70', 3030).then((server) {
+    HttpServer.bind('10.101.157.254', 3030).then((server) {
       server.listen((HttpRequest req) {
         if (req.uri.path == '/ws') {
           // Upgrade a HttpRequest to a WebSocket connection.

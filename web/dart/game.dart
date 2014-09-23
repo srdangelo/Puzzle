@@ -37,6 +37,9 @@ class Game extends TouchLayer {
 
   var phase;
   num id = 0;
+  num totalTimeCounter = 0;
+  
+  List<String> touched = new List<String>();
   
   List<String> order = ['red', 'blue', 'green'];
   List<String> others = ['circleRed', 'circleBlue', 'circleGreen'];
@@ -157,13 +160,18 @@ class Game extends TouchLayer {
          switch(phase){
          case 'TITLE':
            phase = 'TRIAL ONE'; 
+           new Timer.periodic(new Duration(seconds:1), (var e) => totalTimeCounter++);
+           touched.clear;
            repaint();
            break;
          case 'TRIAL ONE':
             phase = 'TRIAL TWO';
+            new Timer.periodic(new Duration(seconds:1), (var e) => totalTimeCounter++);
             id += 1;
             datalog();
             ws.send('newtrial');
+            score = 100;
+            touched.clear;
             repaint();
             break;
          case 'TRIAL TWO':
@@ -171,6 +179,8 @@ class Game extends TouchLayer {
             id += 1;
             datalog();
             ws.send('newtrial');
+            score = 100;
+            touched.clear;
             repaint();
             break;
          }
@@ -179,7 +189,8 @@ class Game extends TouchLayer {
      void datalog(){
        datalogger.id = id;
        datalogger.score = score;
-       
+       datalogger.time = totalTimeCounter;
+       datalogger.touched = touched;
        datalogger.send();
      }
          

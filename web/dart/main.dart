@@ -29,7 +29,7 @@ void initWebSocket([int retrySeconds = 2]) {
   var reconnectScheduled = false;
 
   outputMsg("Connecting to websocket");
-  ws = new html.WebSocket('ws://10.101.157.70:3030/ws');
+  ws = new html.WebSocket('ws://10.101.157.254:3030/ws');
 
   void scheduleReconnect() {
     if (!reconnectScheduled) {

@@ -148,6 +148,7 @@ class Distractor implements Touchable{
       _dragging = false;
       if (c.touchX == _compareX && c.touchY == _compareY) {
         game.score -= 10;
+        game.touched.add(this.type);
         moving = false;
       }
       
