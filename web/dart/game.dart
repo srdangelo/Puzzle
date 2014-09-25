@@ -33,6 +33,7 @@ class Game extends TouchLayer {
   Trial trial1;
   Trial trial2;
   Trial trial3;
+  Trial trial4;
   Title title;
 
   var phase;
@@ -65,57 +66,16 @@ class Game extends TouchLayer {
     trial1 = new Trial(order, others);
     trial2 = new Trial(order2, others2);
     trial3 = new Trial(order3, others3);
+    trial4 = new Trial(order3, others3);
     title = new Title();
     
-    datalogger = new DataLogger();
-    //tmanager.registerEvents(document.documentElement);
-    //tmanager.addTouchLayer(this);
-    
-//    var other;
-//    num z = 0;
-//    for (other in others){
-//          z += 100;
-//          num otherX = random.nextInt(100) + z;
-//          num otherY = random.nextInt(300);
-//          addDistractor(new Distractor(other, otherX, otherY));
-//        }
-//    
-//
-//    // create pieces in list
-//    var item;
-//    num x = 300;
-//    num y = 300;
-//    for (item in order){
-//      x = random.nextInt(500) + 50;
-//      y = random.nextInt(500) + 50;
-//      addPiece(new Piece(x, y, item));
-//    }
-//    // assign each piece and left and right buddy depending on order in list 
-//    var square;
-//    for (square in pieces){
-//      int x;
-//      x = pieces.indexOf(square);
-//
-//      if (x == 0){
-//        //square.leftBuddy = null;
-//        square.rightBuddy = pieces[x + 1];
-//      }
-//      if (x == pieces.length - 1){
-//        square.leftBuddy = pieces[x - 1];
-//        //square.rightBuddy = null;
-//      }
-//      if (x != 0 && x != pieces.length - 1) {
-//        square.leftBuddy = pieces[x - 1];
-//        square.rightBuddy = pieces[x + 1];
-//      }
-//      
-//    }
-//    
+    datalogger = new DataLogger();  
 
 
     // redraw the canvas every 40 milliseconds
     new Timer.periodic(const Duration(milliseconds : 40), (timer) => animate());
   }
+  
   void draw() {
       
       switch(phase){
@@ -130,6 +90,9 @@ class Game extends TouchLayer {
           break;
         case 'TRIAL THREE':
           trial3.draw(ctx, width, height);
+          break;
+        case 'TRIAL FOUR':
+          trial4.draw(ctx, width, height);
           break;
   }
   }
@@ -151,6 +114,10 @@ class Game extends TouchLayer {
             trial3.animate();
             draw();
             break;
+        case 'TRIAL FOUR':
+            trial4.animate();
+            draw();
+            break;
       }
   }
       
@@ -161,7 +128,7 @@ class Game extends TouchLayer {
          case 'TITLE':
            phase = 'TRIAL ONE'; 
            new Timer.periodic(new Duration(seconds:1), (var e) => totalTimeCounter++);
-           touched.clear;
+           touched.clear();
            repaint();
            break;
          case 'TRIAL ONE':
@@ -171,7 +138,7 @@ class Game extends TouchLayer {
             datalog();
             ws.send('newtrial');
             score = 100;
-            touched.clear;
+            touched.clear();
             repaint();
             break;
          case 'TRIAL TWO':
@@ -180,7 +147,16 @@ class Game extends TouchLayer {
             datalog();
             ws.send('newtrial');
             score = 100;
-            touched.clear;
+            touched.clear();
+            repaint();
+            break;
+         case 'TRIAL THREE':
+            phase = 'TRIAL FOUR'; 
+            id += 1;
+            datalog();
+            ws.send('newtrial');
+            score = 100;
+            touched.clear();
             repaint();
             break;
          }
@@ -194,64 +170,6 @@ class Game extends TouchLayer {
        datalogger.send();
      }
          
-    
-  
-//  void addPiece(Piece piece) {
-//    pieces.add(piece);
-//    touchables.add(piece);
-//  }
-//  
-//  void addDistractor(Distractor distractor){
-//    distractors.add(distractor);
-//    touchables.add(distractor);
-//  }
-
-/**
- * Animate all of the game objects 
- */
-//  void animate() {
-//    
-//    for (Piece piece in pieces) {
-//      piece.animate();
-//    }
-//      
-//    for (Distractor distractor in distractors) {
-//       distractor.animate();
-//    }
-//    
-//    
-//    
-//    draw();
-//  }
-//  
-//
-//  void draw() {
-//    
-//    // erase the screen
-//    ctx.clearRect(0, 0, width, height);
-//    
-//    // draw some text
-//    ctx.fillStyle = 'White';
-//    ctx.font = '30px sans-serif';
-//    ctx.textAlign = 'left';
-//    ctx.textBaseline = 'center';
-//    ctx.fillText("Puzzle Attempt: ", 100, 50);
-//    ctx.fillText("Score: ${score}", 100, 100);
-//    if (complete == pieces.length - 1){
-//      ctx.fillText("Complete!!", 100, 150);
-//    }
-//    
-//    // draw the pieces
-//    for (Piece piece in pieces) {
-//      piece.draw(ctx);
-//    }
-//    
-//    for (Distractor distractor in distractors){
-//    distractor.draw(ctx);
-//    }
-//    
-//
-//  }
 
   
 }

@@ -15,6 +15,7 @@ handleMsg(msg) {
   
   if(msg == 'connected'){
     print('Message received: $msg');
+    gameData.clear();
   }
   else if(msg == 'newtrial'){
     print('Message received: $msg');
@@ -26,6 +27,7 @@ handleMsg(msg) {
       print(data[0]);
       sink.write('${data}\n');
     }
+    gameData.clear();
     
   // Close the IOSink to free system resources.
     sink.close();
@@ -72,7 +74,7 @@ void main() {
   });
   
   runZoned(() {
-    HttpServer.bind('10.101.157.254', 3030).then((server) {
+    HttpServer.bind('10.101.156.87', 3030).then((server) {
       server.listen((HttpRequest req) {
         if (req.uri.path == '/ws') {
           // Upgrade a HttpRequest to a WebSocket connection.
