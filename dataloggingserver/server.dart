@@ -63,18 +63,18 @@ void directoryHandler(dir, request) {
 }
 
 void main() {
-  virDir = new VirtualDirectory(Platform.script.resolve('/Users/sarahdangelo/Documents/Puzzle/web/').toFilePath())
+  virDir = new VirtualDirectory(Platform.script.resolve('/Users/sarahdangelo/Documents/Puzzle/build/web/').toFilePath())
     ..allowDirectoryListing = true
     ..directoryHandler = directoryHandler;
 
-  HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 3030).then((server) {
+  HttpServer.bind(InternetAddress.LOOPBACK_IP_V4, 8081).then((server) {
     server.listen((request) {
       virDir.serveRequest(request);
     });
   });
   
   runZoned(() {
-    HttpServer.bind('10.101.156.87', 3030).then((server) {
+    HttpServer.bind('127.0.0.1', 4040).then((server) {
       server.listen((HttpRequest req) {
         if (req.uri.path == '/ws') {
           // Upgrade a HttpRequest to a WebSocket connection.

@@ -1,0 +1,34 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+   <title>Puzzle Attempt</title>
+   <meta name="apple-mobile-web-app-capable" content="yes">
+   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">   
+   <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  
+  <!-- This is where you draw all the visual elements of the game -->
+  <canvas id="game" width="1020" height="600"></canvas>
+  
+  
+  <!-- This is your main dart script --> 
+  <script src="dart/main.dart" type="application/dart"></script>
+  
+  
+  <!-- This is necessary for dart to run in a browser -->
+  <script src="dart.js"></script>
+   
+   
+   
+   <!-- This prevents touch input from triggering a rightclick event -->
+   <script type="text/javascript">
+      window.oncontextmenu = function(event) {
+         event.preventDefault();
+         event.stopPropagation();
+         return false;
+      };
+   </script>
+</body>
+</html>
